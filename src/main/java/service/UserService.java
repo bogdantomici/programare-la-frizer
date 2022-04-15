@@ -4,11 +4,17 @@ import exception.*;
 import model.User;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
 import static service.FileSystemService.getPathToFile;
 
 public class UserService {
@@ -25,36 +31,81 @@ public class UserService {
         userRepository = database.getRepository(User.class);
     }
 
+    public static String getUserFirstName(String username) {
+        for (User user : UserService.getUsers().find())
+            if (Objects.equals(username, user.getUsername()))
+                return user.getFirstName();
+
+        return "";
+    }
+
+    public static String getUserSecondName(String username) {
+        for (User user : UserService.getUsers().find())
+            if (Objects.equals(username, user.getUsername()))
+                return user.getSecondName();
+
+        return "";
+    }
+
+    public static String getUserAddress(String username) {
+        for (User user : UserService.getUsers().find())
+            if (Objects.equals(username, user.getUsername()))
+                return user.getAddress();
+
+        return "";
+    }
+
+    public static String getUserPhoneNumber(String username) {
+        for (User user : UserService.getUsers().find())
+            if (Objects.equals(username, user.getUsername()))
+                return user.getPhoneNumber();
+
+        return "";
+    }
+
+    public static String getUserRole(String username) {
+        for (User user : UserService.getUsers().find())
+            if (Objects.equals(username, user.getUsername()))
+                return user.getRole();
+
+        return "";
+    }
+
+    public static void deleteUser(String username) {
+        for (User user : userRepository.find())
+            if (Objects.equals(username, user.getUsername()))
+                userRepository.remove(user);
+    }
+
     public static void addUser(String username, String password, String firstName,
                                String secondName, String phoneNumber, String address, String role) throws UsernameAlreadyExistsException, FieldNotCompletedException, WeakPasswordException {
-        checkUserAlreadyExist(username);
-        checkAllFieldsAreCompleted(username, password, firstName, secondName,phoneNumber, role);
+        checkAllFieldsAreCompleted(username, password, firstName, secondName, phoneNumber, address, role);
+        checkUserAlreadyExists(username);
         checkPasswordFormatException(password);
         userRepository.insert(new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role));
     }
 
-    public static void checkAllFieldsAreCompleted(String username, String password, String firstName,
-                                                  String secondName, String phoneNumber, String role) throws FieldNotCompletedException {
+    public static void checkAllFieldsAreCompleted(@NotNull String username, String password, String firstName,
+                                                  String secondName, String phoneNumber, String address, String role) throws FieldNotCompletedException {
 
         if (username.trim().isEmpty() || password.trim().isEmpty() || firstName.trim().isEmpty() || secondName.trim().isEmpty()
-                || phoneNumber.trim().isEmpty() || role.trim().isEmpty())
+                || phoneNumber.trim().isEmpty() || address.trim().isEmpty() || role.trim().isEmpty())
             throw new FieldNotCompletedException();
     }
 
-    public static void checkUserAlreadyExist(String username) throws UsernameAlreadyExistsException {
+    public static void checkUserAlreadyExists(String username) throws UsernameAlreadyExistsException {
         for (User user : userRepository.find()) {
             if (Objects.equals(username, user.getUsername()))
                 throw new UsernameAlreadyExistsException(username);
         }
     }
 
-    public static boolean stringContainsNumber(String s)
-    {
-        return Pattern.compile( "[0-9]" ).matcher( s ).find();
+    public static boolean stringContainsNumber(String s) {
+        return Pattern.compile("[0-9]").matcher(s).find();
     }
-    public static boolean stringContainsUpperCase(String s)
-    {
-        return Pattern.compile( "[A-Z]" ).matcher( s ).find();
+
+    public static boolean stringContainsUpperCase(String s) {
+        return Pattern.compile("[A-Z]").matcher(s).find();
     }
 
     public static void checkPasswordFormatException(String password) throws WeakPasswordException {
@@ -63,11 +114,10 @@ public class UserService {
         checkIfPasswordContainsAtLeast1UpperCase(password);
     }
 
-    private static void checkIfPasswordContainsAtLeast8Characters(String password) throws WeakPasswordException {
+    private static void checkIfPasswordContainsAtLeast8Characters(@NotNull String password) throws WeakPasswordException {
         if (password.length() < 8)
             throw new WeakPasswordException("8 characters");
     }
-
 
     private static void checkIfPasswordContainsAtLeast1Digit(String password) throws WeakPasswordException {
         if (!stringContainsNumber(password))
@@ -79,7 +129,67 @@ public class UserService {
             throw new WeakPasswordException("one upper case");
     }
 
-    static String encodePassword(String salt, String password) {
+    public static void checkPasswordInOrderToLogin(String password, String username) throws WrongPasswordException {
+        boolean flag = false;
+        for (User user : userRepository.find())
+            if (Objects.equals(username, user.getUsername()))
+                if (Objects.equals(encodePassword(username, password), user.getPassword()))
+                    flag = true;
+
+        if (!flag)
+            throw new WrongPasswordException();
+    }
+
+    public static void checkUserDoesAlreadyExist(String username) throws UsernameDoesNotExistsException {
+        boolean flag = false;
+        for (User user : userRepository.find())
+            if (Objects.equals(username, user.getUsername())) {
+                flag = true;
+                break;
+            }
+
+        if (!flag)
+            throw new UsernameDoesNotExistsException(username);
+    }
+
+    public static int loginUser(String username, String password) throws UsernameDoesNotExistsException, WrongPasswordException, FieldNotCompletedException {
+        checkUserDoesAlreadyExist(username);
+        checkPasswordInOrderToLogin(password, username);
+
+        String encryptedPassword = encodePassword(username, password);
+
+        Integer x = getValueBasedOnRoleSelected(username, encryptedPassword);
+        if (x != null) return x;
+
+        return 0;
+    }
+
+    @Nullable
+    private static Integer getValueBasedOnRoleSelected(String username, String encryptedPassword) {
+        for (User user : UserService.userRepository.find())
+            if (Objects.equals(username, user.getUsername()) && Objects.equals(encryptedPassword, user.getPassword()))
+                if (user.getRole().equals("Patient")) {
+                    return 1;
+                } else {
+                    return 2;
+                }
+
+        return null;
+    }
+
+    @NotNull
+    public static ArrayList<String> getDentistsFirstNameList() {
+        ArrayList<String> dentistFirstNameList = new ArrayList<>();
+
+        for (User user : userRepository.find())
+            if (Objects.equals("Dentist", user.getRole()))
+                dentistFirstNameList.add(user.getFirstName());
+
+        return dentistFirstNameList;
+    }
+
+    @NotNull
+    public static String encodePassword(@NotNull String salt, @NotNull String password) {
         MessageDigest md = getMessageDigest();
         md.update(salt.getBytes(StandardCharsets.UTF_8));
 
@@ -99,10 +209,16 @@ public class UserService {
         }
         return md;
     }
-    public static ObjectRepository<User>  getUsers() {
+
+    public static ObjectRepository<User> getUsers() {
         return userRepository;
     }
+
     public static Nitrite getDatabase() {
         return database;
+    }
+
+    public static List<User> getUserList() {
+        return userRepository.find().toList();
     }
 }
