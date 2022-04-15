@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.istack.internal.NotNull;
 import exception.FieldNotCompletedException;
 import exception.UsernameAlreadyExistsException;
 import exception.WeakPasswordException;
@@ -15,7 +16,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
 import service.UserService;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegistrationController implements Initializable {
-    private final String[] ROLESARRAY = {"Patient", "Dentist"};
+    private final String[] ROLESARRAY = {"Client", "Barber"};
     @FXML
     private TextField usernameField;
     @FXML
@@ -52,7 +52,7 @@ public class RegistrationController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         role.getItems().addAll(ROLESARRAY);
-        role.setValue("Patient");
+        role.setValue("Client");
     }
 
     @FXML
@@ -96,7 +96,7 @@ public class RegistrationController implements Initializable {
     @FXML
     private void handleLoginAction(@NotNull javafx.event.ActionEvent event) throws IOException {
         FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getClassLoader().getResource("loginFXML/user_login.fxml"));
+        Loader.setLocation(getClass().getClassLoader().getResource("fxml/user_login.fxml"));
         Parent viewUserLogin = Loader.load();
         Scene loginScene = new Scene(viewUserLogin, 656, 500);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
