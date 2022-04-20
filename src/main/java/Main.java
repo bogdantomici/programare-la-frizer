@@ -13,7 +13,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         UserService.initDatabase();
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/user_registration.fxml"));
+        HaircutService.initDatabase();
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/user_login.fxml"));
 
         primaryStage.setTitle("ProgramareFrizer");
         primaryStage.setScene(new Scene(root, 655, 500));
