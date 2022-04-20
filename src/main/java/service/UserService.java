@@ -168,7 +168,7 @@ public class UserService {
     private static Integer getValueBasedOnRoleSelected(String username, String encryptedPassword) {
         for (User user : UserService.userRepository.find())
             if (Objects.equals(username, user.getUsername()) && Objects.equals(encryptedPassword, user.getPassword()))
-                if (user.getRole().equals("Patient")) {
+                if (user.getRole().equals("Client")) {
                     return 1;
                 } else {
                     return 2;
@@ -178,14 +178,14 @@ public class UserService {
     }
 
     @NotNull
-    public static ArrayList<String> getDentistsFirstNameList() {
-        ArrayList<String> dentistFirstNameList = new ArrayList<>();
+    public static ArrayList<String> getBarbersFirstNameList() {
+        ArrayList<String> barberFirstNameList = new ArrayList<>();
 
         for (User user : userRepository.find())
-            if (Objects.equals("Dentist", user.getRole()))
-                dentistFirstNameList.add(user.getFirstName());
+            if (Objects.equals("Barber", user.getRole()))
+                barberFirstNameList.add(user.getFirstName());
 
-        return dentistFirstNameList;
+        return barberFirstNameList;
     }
 
     @NotNull
