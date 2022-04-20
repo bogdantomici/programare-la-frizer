@@ -54,14 +54,14 @@ public class LoginController {
             int aux = UserService.loginUser(user.getUsername(), user.getPassword());
             FXMLLoader Loader = new FXMLLoader();
             if (aux == 1) {
-                Loader.setLocation(getClass().getClassLoader().getResource("fxml/barber_page.fxml"));
+                Loader.setLocation(getClass().getClassLoader().getResource("fxml/client_page.fxml"));
                 clearFields();
             } else if (aux == 2) {
                 Loader.setLocation(getClass().getClassLoader().getResource("fxml/barber_page.fxml"));
                 clearFields();
             }
             Parent viewUserLogin = Loader.load();
-            Scene loginScene = new Scene(viewUserLogin, 1098, 512);
+            Scene loginScene = new Scene(viewUserLogin, 952, 512);
             Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
             window.setScene(loginScene);
             window.show();
@@ -95,7 +95,7 @@ public class LoginController {
     }
 
     @FXML
-    private void goBackToRegistration(@NotNull javafx.event.ActionEvent event) throws IOException {
+    private void goBackToLogin(@NotNull javafx.event.ActionEvent event) throws IOException {
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getClassLoader().getResource("fxml/user_registration.fxml"));
         Parent viewUserLogin = Loader.load();
