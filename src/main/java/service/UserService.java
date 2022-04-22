@@ -1,6 +1,7 @@
 package service;
 
 import exception.*;
+import model.Haircut;
 import model.User;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
@@ -37,6 +38,15 @@ public class UserService {
                 return user.getFirstName();
 
         return "";
+    }
+
+    public static Haircut getBaseHaircut() throws Exception {
+        for (Haircut haircut1 : HaircutService.getHaircutRepository().find()) {
+            if (Objects.equals(haircut1.getId(), "1")) {
+                return haircut1;
+            }
+        }
+        throw new Exception("Base haircut doesnt exist in DB");
     }
 
     public static String getUserSecondName(String username) {
@@ -78,11 +88,19 @@ public class UserService {
     }
 
     public static void addUser(String username, String password, String firstName,
-                               String secondName, String phoneNumber, String address, String role) throws UsernameAlreadyExistsException, FieldNotCompletedException, WeakPasswordException {
+                               String secondName, String phoneNumber, String address, String role) throws Exception {
         checkAllFieldsAreCompleted(username, password, firstName, secondName, phoneNumber, address, role);
         checkUserAlreadyExists(username);
         checkPasswordFormatException(password);
-        userRepository.insert(new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role));
+
+        if (role.equals("Barber")) {
+            Haircut haircut = getBaseHaircut();
+            List<Haircut> haircutList = new ArrayList<>();
+            haircutList.add(haircut);
+            userRepository.insert(new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role, haircutList));
+        } else {
+            userRepository.insert(new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role));
+        }
     }
 
     public static void checkAllFieldsAreCompleted(@NotNull String username, String password, String firstName,

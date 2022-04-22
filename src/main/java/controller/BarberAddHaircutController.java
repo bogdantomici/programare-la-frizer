@@ -2,18 +2,18 @@ package controller;
 
 import exception.FieldNotCompletedException;
 import exception.HaircutIncorrectPriceException;
-import exception.HaircutNameAlreadyExistsException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import org.dizitart.no2.NitriteId;
 import org.jetbrains.annotations.NotNull;
 import service.HaircutService;
 
 import java.io.IOException;
 
-public class BarberAddHaircut implements BarberPageInterface {
+public class BarberAddHaircutController implements BarberPageInterface {
     @FXML
     private Button backButton;
 
@@ -35,7 +35,7 @@ public class BarberAddHaircut implements BarberPageInterface {
             insertHaircutIntoDBIfCorrectPriceFieldFormat();
             registrationMessage.setText("Haircut successfully added !");
             clearFields();
-        } catch (FieldNotCompletedException | HaircutNameAlreadyExistsException e) {
+        } catch (FieldNotCompletedException e) {
             registrationMessage.setText(e.getMessage());
         } catch (HaircutIncorrectPriceException e) {
             registrationMessage.setText(e.getMessage());
@@ -43,10 +43,11 @@ public class BarberAddHaircut implements BarberPageInterface {
         }
     }
 
-    private void insertHaircutIntoDBIfCorrectPriceFieldFormat() throws FieldNotCompletedException, HaircutNameAlreadyExistsException, HaircutIncorrectPriceException {
-        if (HaircutService.checkIfPriceIsAFloat(priceField.getText()))
-            HaircutService.addHaircut(haircutNameField.getText(), Float.parseFloat(priceField.getText()));
-        else
+    private void insertHaircutIntoDBIfCorrectPriceFieldFormat() throws FieldNotCompletedException, HaircutIncorrectPriceException {
+        if (HaircutService.checkIfPriceIsAFloat(priceField.getText())) {
+            String id = NitriteId.newId().toString();
+            HaircutService.addHaircut(id, haircutNameField.getText(), Float.parseFloat(priceField.getText()), LoginController.getLoggedUser());
+        } else
             throw new HaircutIncorrectPriceException();
     }
 

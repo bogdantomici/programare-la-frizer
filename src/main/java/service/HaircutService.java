@@ -1,15 +1,14 @@
 package service;
 
 import exception.FieldNotCompletedException;
-import exception.HaircutNameAlreadyExistsException;
 import model.Haircut;
+import model.User;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static service.FileSystemService.getPathToFile;
 
@@ -26,22 +25,19 @@ public class HaircutService {
         haircutRepository = database.getRepository(Haircut.class);
     }
 
-    public static void addHaircut(String name, float price) throws FieldNotCompletedException, HaircutNameAlreadyExistsException {
-        checkHaircutNameAlreadyExist(name);
+    public static void addHaircut(String id, String name, float price, User user) throws FieldNotCompletedException {
         checkAllFieldsAreCompleted(name, price);
-        haircutRepository.insert(new Haircut(name, price));
+        List<Haircut> haircutList = user.getHaircutList();
+        Haircut haircut = new Haircut(id, name, price);
+        haircutList.add(haircut);
+        user.setHaircutList(haircutList);
+        haircutRepository.insert(haircut);
+        UserService.getUsers().update(user);
     }
 
     public static void checkAllFieldsAreCompleted(@NotNull String name, float price) throws FieldNotCompletedException {
         if (name.trim().isEmpty() || String.valueOf(price).trim().isEmpty())
             throw new FieldNotCompletedException();
-    }
-
-    public static void checkHaircutNameAlreadyExist(String name) throws HaircutNameAlreadyExistsException {
-        for (Haircut haircut : haircutRepository.find()) {
-            if (Objects.equals(name, haircut.getName()))
-                throw new HaircutNameAlreadyExistsException(name);
-        }
     }
 
     public static boolean checkIfPriceIsAFloat(String price) {
@@ -65,7 +61,7 @@ public class HaircutService {
         return barberHaircutList;
     }
 
-    public static ObjectRepository<Haircut> getDentistRepository() {
+    public static ObjectRepository<Haircut> getHaircutRepository() {
         return haircutRepository;
     }
 

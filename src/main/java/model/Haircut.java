@@ -12,6 +12,8 @@ import org.dizitart.no2.objects.Id;
 public class Haircut {
 
     @Id
+    private String id;
+
     private String name;
     private float price;
 }
