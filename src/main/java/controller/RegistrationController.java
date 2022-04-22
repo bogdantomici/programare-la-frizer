@@ -16,10 +16,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Haircut;
 import service.UserService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RegistrationController implements Initializable {
@@ -49,6 +51,8 @@ public class RegistrationController implements Initializable {
     @FXML
     private Text registrationMessage;
 
+    private List<Haircut> haircutList;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         role.getItems().addAll(ROLESARRAY);
@@ -70,10 +74,12 @@ public class RegistrationController implements Initializable {
         } catch (WeakPasswordException e) {
             registrationMessage.setText(e.getMessage());
             passwordField.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private void insertUserDataIntoDB() throws UsernameAlreadyExistsException, FieldNotCompletedException, WeakPasswordException {
+    private void insertUserDataIntoDB() throws Exception {
         UserService.addUser(usernameField.getText(), passwordField.getText(),
                 firstNameField.getText(), secondNameField.getText(), phoneNumberField.getText(),
                 addressField.getText(), role.getValue());
