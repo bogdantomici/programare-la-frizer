@@ -32,11 +32,10 @@ public class BarberPageController implements BarberPageInterface {
     @FXML
     private Button closeField;
 
-
     @FXML
     private void handleAddServiceAction(@NotNull javafx.event.ActionEvent event) throws IOException {
         FXMLLoader Loader = new FXMLLoader();
-        Loader.setLocation(getClass().getClassLoader().getResource("fxml/barber_add_service.fxml"));
+        Loader.setLocation(getClass().getClassLoader().getResource("fxml/barber_add_haircut.fxml"));
         Parent viewUserLogin = Loader.load();
         Scene loginScene = new Scene(viewUserLogin, 620, 430);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -54,6 +53,18 @@ public class BarberPageController implements BarberPageInterface {
         window.setScene(loginScene);
         window.show();
     }
+
+    @FXML
+    private void handleViewHaircutsAction(@NotNull javafx.event.ActionEvent event) throws IOException {
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getClassLoader().getResource("fxml/barber_view_haircuts.fxml"));
+        Parent viewUserLogin = Loader.load();
+        Scene loginScene = new Scene(viewUserLogin, 660, 550);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(loginScene);
+        window.show();
+    }
+
     @FXML
     private void minimizeWindow(@NotNull ActionEvent event) {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
