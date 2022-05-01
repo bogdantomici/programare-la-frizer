@@ -87,6 +87,7 @@ public class LoginController {
         user.setPhoneNumber(UserService.getUserPhoneNumber(username));
         user.setAddress(UserService.getUserAddress(username));
         user.setRole(UserService.getUserRole(username));
+        user.setHaircutList(UserService.getUserHaircutList(username));
     }
 
     private void clearFields() {
@@ -120,6 +121,6 @@ public class LoginController {
     @NotNull
     @Contract(" -> new")
     public static User getLoggedUser() {
-        return new User(user.getUsername(), user.getPassword(), user.getFirstName(), user.getSecondName(), user.getPhoneNumber(), user.getAddress(), user.getRole());
+        return user;
     }
 }

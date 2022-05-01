@@ -81,6 +81,14 @@ public class UserService {
         return "";
     }
 
+    public static List<Haircut> getUserHaircutList(String username) {
+        for (User user : UserService.getUsers().find())
+            if (Objects.equals(username, user.getUsername()))
+                return user.getHaircutList();
+
+        return null;
+    }
+
     public static void deleteUser(String username) {
         for (User user : userRepository.find())
             if (Objects.equals(username, user.getUsername()))
@@ -94,12 +102,17 @@ public class UserService {
         checkPasswordFormatException(password);
 
         if (role.equals("Barber")) {
-            Haircut haircut = getBaseHaircut();
+            Haircut haircut = getBaseHaircut(); //base haircut
             List<Haircut> haircutList = new ArrayList<>();
             haircutList.add(haircut);
-            userRepository.insert(new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role, haircutList));
-        } else {
-            userRepository.insert(new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role));
+
+            //add the haircutList to the barber haircuts list and insert it into DB
+            User newUser = new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role, haircutList);
+            userRepository.insert(newUser);
+
+        } else if (role.equals("Client")) {
+            User newUser = new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role);
+            userRepository.insert(newUser);
         }
     }
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="512.0" prefWidth="952.0" style="-fx-background-color: #dbe4eb;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BarberPageController">
+<AnchorPane prefHeight="512.0" prefWidth="952.0" style="-fx-background-color: #dbe4eb;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BarberPageController">
     <VBox prefHeight="512.0" prefWidth="242.0" style="-fx-background-color: #1d89f3;">
         <Label prefHeight="35.0" prefWidth="188.0" text="     Barber options">
             <font>
@@ -37,7 +37,7 @@
                 <Insets left="25.0" />
             </VBox.margin>
         </Button>
-        <Button fx:id="viewServicesButton" layoutX="35.0" layoutY="255.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="192.0" text="View haircuts">
+        <Button fx:id="viewServicesButton" layoutX="35.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleViewHaircutsAction" prefHeight="50.0" prefWidth="192.0" text="View haircuts">
             <graphic>
                 <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/AppointmentsSearchLogo.png" />

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static service.FileSystemService.getPathToFile;
+import static service.UserService.encodePassword;
 
 public class HaircutService {
     private static ObjectRepository<Haircut> haircutRepository;
@@ -25,14 +26,18 @@ public class HaircutService {
         haircutRepository = database.getRepository(Haircut.class);
     }
 
-    public static void addHaircut(String id, String name, float price, User user) throws FieldNotCompletedException {
+    public static void addHaircut(String id, String name, float price, @NotNull User user) throws FieldNotCompletedException {
         checkAllFieldsAreCompleted(name, price);
-        List<Haircut> haircutList = user.getHaircutList();
+
+        List<Haircut> haircutList = user.getHaircutList();  //get the barber haircut list, add the new haircut to it and insert it into the DB
         Haircut haircut = new Haircut(id, name, price);
         haircutList.add(haircut);
         user.setHaircutList(haircutList);
         haircutRepository.insert(haircut);
-        UserService.getUsers().update(user);
+
+        User newUser = new User(user.getUsername(), encodePassword(user.getUsername(), user.getPassword()), user.getFirstName(), user.getSecondName(), user.getPhoneNumber(), user.getAddress(), user.getRole(), user.getHaircutList());
+        UserService.getUsers().remove(user);
+        UserService.getUsers().insert(newUser);
     }
 
     public static void checkAllFieldsAreCompleted(@NotNull String name, float price) throws FieldNotCompletedException {
