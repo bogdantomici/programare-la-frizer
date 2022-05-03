@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Haircut;
+import service.AppointmentService;
 import service.HaircutService;
 import service.UserService;
 
@@ -23,6 +24,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         UserService.initDatabase();
         HaircutService.initDatabase();
+        AppointmentService.initDatabase();
+
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/user_login.fxml"));
 
         Haircut haircut = new Haircut("1", "Short Cut", 5);

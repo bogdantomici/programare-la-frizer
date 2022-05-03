@@ -24,6 +24,7 @@ public class User {
     private String role;
 
     private List<Haircut> haircutList;
+    private Appointment appointment;
 
     public User(String username, String password, String firstName, String secondName, String phoneNumber, String address, String role) {
         this.username = username;
@@ -34,5 +35,26 @@ public class User {
         this.address = address;
         this.role = role;
     }
-}
 
+    public User(String username, String password, String firstName, String secondName, String phoneNumber, String address, String role, List<Haircut> haircutList) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
+        this.haircutList = haircutList;
+    }
+
+    public User(String username, String password, String firstName, String secondName, String phoneNumber, String address, String role, Appointment appointment) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
+        this.appointment = appointment;
+    }
+}

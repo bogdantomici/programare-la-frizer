@@ -80,14 +80,21 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
+        String role = UserService.getUserRole(username);
+
+        if (role.equals("Client")) {
+            user.setAppointment(UserService.getUserAppointment(username));  //a user has an appointment
+        } else if (role.equals("Barber")) {
+            user.setHaircutList(UserService.getUserHaircutList(username)); //and a barber has a haircut list
+        }
+
         user.setUsername(username);
         user.setPassword(password);
         user.setFirstName(UserService.getUserFirstName(username));
         user.setSecondName(UserService.getUserSecondName(username));
         user.setPhoneNumber(UserService.getUserPhoneNumber(username));
         user.setAddress(UserService.getUserAddress(username));
-        user.setRole(UserService.getUserRole(username));
-        user.setHaircutList(UserService.getUserHaircutList(username));
+        user.setRole(role);
     }
 
     private void clearFields() {
