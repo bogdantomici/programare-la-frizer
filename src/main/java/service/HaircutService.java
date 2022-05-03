@@ -7,7 +7,6 @@ import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static service.FileSystemService.getPathToFile;
@@ -53,17 +52,6 @@ public class HaircutService {
         } catch (NumberFormatException ex) {
             return false;
         }
-    }
-
-    @NotNull
-    public static ArrayList<String> getBarberHaircutsNameList() {
-        ArrayList<String> barberHaircutList = new ArrayList<>();
-
-        for (Haircut service : haircutRepository.find()) {
-            barberHaircutList.add(service.getName());
-        }
-
-        return barberHaircutList;
     }
 
     public static ObjectRepository<Haircut> getHaircutRepository() {

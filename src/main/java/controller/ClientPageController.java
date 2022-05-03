@@ -4,8 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,21 +18,12 @@ import model.User;
 import org.jetbrains.annotations.NotNull;
 import service.UserService;
 
-import javax.xml.soap.Text;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ClientPageController implements ClientPageInterface, Initializable {
-
-    @FXML
-    private Button viewProfileButton;
-
-    @FXML
-    private Button addMedicalRecordButton;
-
-    @FXML
-    private Button addAppointmentButton;
 
     @FXML
     private Button viewAppointmentsButton;
@@ -44,12 +38,6 @@ public class ClientPageController implements ClientPageInterface, Initializable 
     private Button closeField;
 
     @FXML
-    private Button deleteServiceButton;
-
-    @FXML
-    private Button backButton;
-
-    @FXML
     private TableView<User> barbersTable;
 
     @FXML
@@ -57,9 +45,6 @@ public class ClientPageController implements ClientPageInterface, Initializable 
 
     @FXML
     private TableColumn<User, String> secondName;
-
-    @FXML
-    private Text deleteServiceMessage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,6 +65,17 @@ public class ClientPageController implements ClientPageInterface, Initializable 
         }
         offerObservableArrayList.addAll(barberList);
         return offerObservableArrayList;
+    }
+
+    @FXML
+    private void handleAddAppointmentAction(@NotNull javafx.event.ActionEvent event) throws IOException {
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getClassLoader().getResource("FXML/client_make_reservation.fxml"));
+        Parent viewUserLogin = Loader.load();
+        Scene loginScene = new Scene(viewUserLogin, 600, 427);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(loginScene);
+        window.show();
     }
 
     @FXML

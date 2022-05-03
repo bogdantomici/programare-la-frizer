@@ -1,6 +1,7 @@
 package service;
 
 import exception.*;
+import model.Appointment;
 import model.Haircut;
 import model.User;
 import org.dizitart.no2.Nitrite;
@@ -89,6 +90,14 @@ public class UserService {
         return null;
     }
 
+    public static Appointment getUserAppointment(String username) {
+        for (User user : UserService.getUsers().find())
+            if (Objects.equals(username, user.getUsername()))
+                return user.getAppointment();
+
+        return null;
+    }
+
     public static void deleteUser(String username) {
         for (User user : userRepository.find())
             if (Objects.equals(username, user.getUsername()))
@@ -97,6 +106,7 @@ public class UserService {
 
     public static void addUser(String username, String password, String firstName,
                                String secondName, String phoneNumber, String address, String role) throws Exception {
+
         checkAllFieldsAreCompleted(username, password, firstName, secondName, phoneNumber, address, role);
         checkUserAlreadyExists(username);
         checkPasswordFormatException(password);
@@ -111,7 +121,8 @@ public class UserService {
             userRepository.insert(newUser);
 
         } else if (role.equals("Client")) {
-            User newUser = new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role);
+            Appointment appointment = null;
+            User newUser = new User(username, encodePassword(username, password), firstName, secondName, phoneNumber, address, role, appointment);
             userRepository.insert(newUser);
         }
     }
