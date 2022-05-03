@@ -51,7 +51,7 @@
                 <Insets left="25.0" />
             </VBox.margin>
         </Button>
-        <Button fx:id="logoutButton" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="192.0" text="Log out">
+        <Button fx:id="logoutButton" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="50.0" prefWidth="192.0" text="Log out">
             <graphic>
                 <ImageView fitHeight="39.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/LogoutLogo.jpg" />

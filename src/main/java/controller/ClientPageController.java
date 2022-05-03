@@ -79,6 +79,17 @@ public class ClientPageController implements ClientPageInterface, Initializable 
     }
 
     @FXML
+    private void handleLogout(@NotNull javafx.event.ActionEvent event) throws IOException {
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getClassLoader().getResource("fxml/user_login.fxml"));
+        Parent viewUserLogin = Loader.load();
+        Scene loginScene = new Scene(viewUserLogin, 663, 500);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(loginScene);
+        window.show();
+    }
+
+    @FXML
     private void minimizeWindow(@NotNull ActionEvent event) {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setIconified(true);
