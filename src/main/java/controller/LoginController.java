@@ -130,4 +130,8 @@ public class LoginController {
     public static User getLoggedUser() {
         return user;
     }
+
+    public static User setLoggedUser() {
+        return user;
+    }
 }
