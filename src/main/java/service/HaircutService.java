@@ -62,7 +62,7 @@ public class HaircutService {
         return database;
     }
 
-    public static List<Haircut> getServiceList() {
+    public static List<Haircut> getHaircutList() {
         return haircutRepository.find().toList();
     }
 }

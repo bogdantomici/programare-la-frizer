@@ -90,6 +90,13 @@ public class UserService {
         return null;
     }
 
+    public static void setUserHaircutList(String username, List<Haircut> newHaircut) {
+        for (User user : UserService.getUsers().find())
+            if (Objects.equals(username, user.getUsername()))
+                user.setHaircutList(newHaircut);
+
+    }
+
     public static Appointment getUserAppointment(String username) {
         for (User user : UserService.getUsers().find())
             if (Objects.equals(username, user.getUsername()))

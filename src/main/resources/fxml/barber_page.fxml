@@ -53,7 +53,7 @@
                 <Insets left="-40.0" />
             </padding>
         </Button>
-        <Button fx:id="viewAppointmentsButton" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="192.0" text="View appointments">
+        <Button fx:id="viewAppointmentsButton" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleViewHaircutsAction" prefHeight="50.0" prefWidth="192.0" text="View appointments">
             <graphic>
                 <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/AppointmentsSearchLogo.png" />
