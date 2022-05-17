@@ -68,6 +68,17 @@ public class ClientPageController implements ClientPageInterface, Initializable 
     }
 
     @FXML
+    private void handleViewAppointmentsAction(@NotNull javafx.event.ActionEvent event) throws IOException {
+        FXMLLoader Loader = new FXMLLoader();
+        Loader.setLocation(getClass().getClassLoader().getResource("fxml/client_view_appointment.fxml"));
+        Parent viewUserLogin = Loader.load();
+        Scene loginScene = new Scene(viewUserLogin, 952, 512);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(loginScene);
+        window.show();
+    }
+
+    @FXML
     private void handleAddAppointmentAction(@NotNull javafx.event.ActionEvent event) throws IOException {
         FXMLLoader Loader = new FXMLLoader();
         Loader.setLocation(getClass().getClassLoader().getResource("fxml/client_make_reservation.fxml"));

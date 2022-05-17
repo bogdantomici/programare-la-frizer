@@ -38,7 +38,7 @@
                 <Insets left="25.0" />
             </VBox.margin>
         </Button>
-        <Button fx:id="viewAppointmentsButton" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="192.0" text="View appointments">
+        <Button layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleViewAppointmentsAction" prefHeight="50.0" prefWidth="192.0" text="View appointments">
             <graphic>
                 <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/AppointmentsSearchLogo.png" />
