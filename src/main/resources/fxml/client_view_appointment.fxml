@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="512.0" prefWidth="952.0" style="-fx-background-color: #dbe4eb;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ClientViewAppointmentsController">
+    <TableView fx:id="appointmentTable" layoutX="148.0" layoutY="26.0" prefHeight="424.0" prefWidth="656.0">
+        <columns>
+            <TableColumn fx:id="barberName" prefWidth="218.33" text="Barber" />
+            <TableColumn fx:id="haircutName" minWidth="0.0" prefWidth="218.33" text="Haircut" />
+         <TableColumn fx:id="appointmentDate" minWidth="0.0" prefWidth="218.33" text="Date" />
+        </columns>
+    </TableView>
+   <Button layoutX="148.0" layoutY="458.0" mnemonicParsing="false" onAction="#goBackToClientPage" prefHeight="40.0" prefWidth="98.0" text="Back" textAlignment="CENTER">
+      <font>
+         <Font name="System Bold" size="16.0" />
+      </font>
+   </Button>
+   <Button layoutX="628.0" layoutY="458.0" mnemonicParsing="false" onAction="#deleteSelectedAppointment" prefHeight="41.0" prefWidth="176.0" text="Delete Appointment" textFill="RED">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+   </Button>
+</AnchorPane>
