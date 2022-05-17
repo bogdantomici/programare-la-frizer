@@ -17,6 +17,7 @@ public class Appointment {
     private String id;
 
     private String barberName;
+    private String clientName;
     private String haircutName;
     private float haircutPrice;
     private Date appointmentDate;

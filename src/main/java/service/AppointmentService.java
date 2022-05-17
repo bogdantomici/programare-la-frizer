@@ -30,11 +30,11 @@ public class AppointmentService {
         appointmentRepository = database.getRepository(Appointment.class);
     }
 
-    public static void addAppointment(String id, String barberName, String haircutName, float price, Date appointmentDate, @NotNull User user) throws AppointmentAlreadyExistsException, IncorrectDateException {
+    public static void addAppointment(String id, String clientName, String barberName, String haircutName, float price, Date appointmentDate, @NotNull User user) throws AppointmentAlreadyExistsException, IncorrectDateException {
         checkAppointmentIdAlreadyExists(id);
         checkValidDate(appointmentDate);
 
-        Appointment appointment = new Appointment(id, barberName, haircutName, price, appointmentDate);
+        Appointment appointment = new Appointment(id, clientName, barberName, haircutName, price, appointmentDate);
         user.setAppointment(appointment);
         appointmentRepository.insert(appointment);
 
