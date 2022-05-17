@@ -89,7 +89,6 @@ public class ClientAppointmentController implements Initializable, ClientPageInt
                 for (int i = 0; i < user.getHaircutList().size(); ++i) {     //loop through the barbers list and add the haircuts name to the haircutNameList
                     haircutNameList.add(user.getHaircutList().get(i).getName());
                 }
-                System.out.println(haircutNameList);
             }
         }
 
@@ -114,7 +113,7 @@ public class ClientAppointmentController implements Initializable, ClientPageInt
 
         String id = NitriteId.newId().toString();
 
-        AppointmentService.addAppointment(id, barberNameChoiceBox.getValue(), haircutNameChoiceBox.getValue(), Float.parseFloat(haircutPriceField.getText()),
+        AppointmentService.addAppointment(id, barberNameChoiceBox.getValue(), loggedUser.getFirstName(), haircutNameChoiceBox.getValue(), Float.parseFloat(haircutPriceField.getText()),
                 Date.valueOf(dateField.getValue()), loggedUser);
     }
 
