@@ -59,7 +59,6 @@ public class BarberViewHaircutsController implements BarberPageInterface, Initia
 
         List<Haircut> haircutList = UserService.getUserHaircutList(LoginController.getLoggedUser().getUsername());
 
-        System.out.println(haircutList);
         haircutObservableList.addAll(haircutList);
         return haircutObservableList;
     }
