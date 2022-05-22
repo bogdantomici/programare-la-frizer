@@ -1,6 +1,5 @@
 package controller;
 
-import com.sun.istack.internal.NotNull;
 import exception.FieldNotCompletedException;
 import exception.UsernameAlreadyExistsException;
 import exception.WeakPasswordException;
@@ -17,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Haircut;
+import org.jetbrains.annotations.NotNull;
 import service.UserService;
 
 import java.io.IOException;
