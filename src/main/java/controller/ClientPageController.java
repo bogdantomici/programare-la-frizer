@@ -29,6 +29,9 @@ public class ClientPageController implements ClientPageInterface, Initializable 
     private Button viewAppointmentsButton;
 
     @FXML
+    private Button makeAppointmentButton;
+
+    @FXML
     private Button logoutButton;
 
     @FXML
@@ -36,6 +39,9 @@ public class ClientPageController implements ClientPageInterface, Initializable 
 
     @FXML
     private Button closeField;
+
+    @FXML
+    private Button backButton;
 
     @FXML
     private TableView<User> barbersTable;

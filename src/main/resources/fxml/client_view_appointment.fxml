@@ -14,7 +14,7 @@
          <TableColumn fx:id="appointmentDate" minWidth="0.0" prefWidth="218.33" text="Date" />
         </columns>
     </TableView>
-   <Button layoutX="148.0" layoutY="458.0" mnemonicParsing="false" onAction="#goBackToClientPage" prefHeight="40.0" prefWidth="98.0" text="Back" textAlignment="CENTER">
+   <Button fx:id="backButton" layoutX="148.0" layoutY="458.0" mnemonicParsing="false" onAction="#goBackToClientPage" prefHeight="40.0" prefWidth="98.0" text="Back" textAlignment="CENTER">
       <font>
          <Font name="System Bold" size="16.0" />
       </font>

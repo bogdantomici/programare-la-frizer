@@ -27,18 +27,18 @@ public class BarberAddHaircutController implements BarberPageInterface {
     private Button createHaircutButton;
 
     @FXML
-    private Text registrationMessage;
+    private Text haircutMessage;
 
     @FXML
     private void createHaircut() {
         try {
             insertHaircutIntoDBIfCorrectPriceFieldFormat();
-            registrationMessage.setText("Haircut successfully added !");
+            haircutMessage.setText("Haircut successfully added !");
             clearFields();
         } catch (FieldNotCompletedException e) {
-            registrationMessage.setText(e.getMessage());
+            haircutMessage.setText(e.getMessage());
         } catch (HaircutIncorrectPriceException e) {
-            registrationMessage.setText(e.getMessage());
+            haircutMessage.setText(e.getMessage());
             priceField.clear();
         }
     }
@@ -59,6 +59,5 @@ public class BarberAddHaircutController implements BarberPageInterface {
     @Override
     public void goBackToBarberPage(@NotNull ActionEvent event) throws IOException {
         BarberPageInterface.super.goBackToBarberPage(event);
-
     }
 }

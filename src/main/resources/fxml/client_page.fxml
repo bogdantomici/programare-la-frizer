@@ -22,7 +22,7 @@
                 <Insets left="25.0" top="60.0" />
             </VBox.margin>
         </Label>
-        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddAppointmentAction" prefHeight="50.0" prefWidth="192.0" text="Make appointment">
+        <Button fx:id="makeAppointmentButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddAppointmentAction" prefHeight="50.0" prefWidth="192.0" text="Make appointment">
             <graphic>
                 <ImageView fitHeight="33.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/AddServices.png" />
@@ -38,7 +38,7 @@
                 <Insets left="25.0" />
             </VBox.margin>
         </Button>
-        <Button layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleViewAppointmentsAction" prefHeight="50.0" prefWidth="192.0" text="View appointments">
+        <Button fx:id="viewAppointmentsButton" layoutX="10.0" layoutY="108.0" mnemonicParsing="false" onAction="#handleViewAppointmentsAction" prefHeight="50.0" prefWidth="192.0" text="View appointments">
             <graphic>
                 <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                     <Image url="@../images/AppointmentsSearchLogo.png" />

@@ -5,13 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import model.Appointment;
 import model.User;
 import org.jetbrains.annotations.NotNull;
@@ -34,6 +31,9 @@ public class ClientViewAppointmentsController implements ClientPageInterface, In
 
     @FXML
     private TableColumn<Appointment, Date> appointmentDate;
+
+    @FXML
+    private Button backButton;
 
     private static final User loggedUser = LoginController.getLoggedUser();
 
